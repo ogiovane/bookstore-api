@@ -1,14 +1,21 @@
 package dev.giovanecs.bookstore.domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Livro {
-
+@Entity
+public class Livro implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String titulo;
     private String nome_autor;
     private String texto;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
@@ -17,6 +24,10 @@ public class Livro {
         this.nome_autor = nome_autor;
         this.texto = texto;
         this.categoria = categoria;
+    }
+
+    public Livro() {
+
     }
 
     @Override
